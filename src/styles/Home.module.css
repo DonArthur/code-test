@@ -1,7 +1,5 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   padding: 1.6rem;
   min-height: 100vh;
@@ -14,6 +12,10 @@
   position: relative;
   gap: 2rem;
   padding: 2rem;
+}
+
+.section {
+  flex: 2;
 }
 
 .section > h2 {
