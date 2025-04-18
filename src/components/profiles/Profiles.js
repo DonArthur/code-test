@@ -18,8 +18,8 @@ const Profiles = ({ data }) => {
               <h3>{item.name}</h3>
               <p>{item.role}</p>
               <span>{item.region}</span>
-              <h2>{item.deals.reduce((sum, deal) => {
-                const amount = (deal.status === 'Closed Won' ? sum + deal.value : sum)
+              <h2>${item.deals.reduce((sum, deal) => {
+                const amount = deal.status === 'Closed Won' ? sum + deal.value : sum
                 return formatShortNumber(amount)
               }, 0)}</h2>
             </div>

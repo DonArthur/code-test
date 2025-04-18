@@ -2,6 +2,8 @@ import styles from '@/styles/Home.module.css'
 import { useState } from 'react'
 import Sidebar from '@/components/sidebar/Sidebar'
 import Profiles from '@/components/profiles/Profiles'
+import Sales from '@/components/sales/Sales'
+import Leaderboard from '@/components/leaderboard/Leaderboard'
 
 export default function Home() {
   const [data, setData] = useState({
@@ -100,9 +102,14 @@ export default function Home() {
         <Sidebar />
       </div>
       <div className={styles.section}>
-        <h2>Sales Overview</h2>
         <div className={styles.center}>
-          <Profiles data={data.salesReps} />
+          <div>
+            <Sales />
+            <Leaderboard data={data.salesReps} />
+          </div>
+          <div>
+            <Profiles data={data.salesReps} />
+          </div>
         </div>
       </div>
     </div>
