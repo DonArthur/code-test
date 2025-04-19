@@ -29,10 +29,10 @@ const Sidebar = () => {
     if (e.key === 'Enter') {
       setLoading(true)
       try {
-        const response = await axios.post('https://localhost:8000/api/ai', {
+        const response = await axios.post('http://localhost:8000/api/ai', {
           question: searchTerm
         })
-        const data = await response.json()
+        const data = await response.data
         setResults(data.answer)
       } catch (error) {
         console.error(`Error fetching answer: ${error}`)
