@@ -1,9 +1,10 @@
 import styles from '@/styles/Home.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from '@/components/sidebar/Sidebar'
 import Profiles from '@/components/profiles/Profiles'
 import Sales from '@/components/sales/Sales'
 import Leaderboard from '@/components/leaderboard/Leaderboard'
+import useSidebarStore from '@/store/SidebarStore'
 
 export default function Home() {
   const [data, setData] = useState({
@@ -95,13 +96,14 @@ export default function Home() {
       }
     ]
   })
+  const { isSidebarOpen } = useSidebarStore()
 
   return (
     <div className={styles.main}>
       <div>
         <Sidebar />
       </div>
-      <div className={styles.section}>
+      <div className={`${styles.section} ${isSidebarOpen ? styles.mlOpened : styles.mlClosed }`}>
         <div className={styles.center}>
           <div>
             <Sales />

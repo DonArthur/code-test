@@ -18,6 +18,16 @@
   flex: 2;
 }
 
+.mlOpened {
+  margin-left: 200px;
+  transition: margin-left .3s ease;
+}
+
+.mlClosed {
+  margin-left: 60px;
+  transition: margin-left .3s ease;
+}
+
 .section > h2 {
   text-align: center;
   background-image: var(--primary-glow);
@@ -25,7 +35,6 @@
   border-radius: var(--border-radius);
 }
 
-/* Mobile */
 @media (max-width: 700px) {
   .center {
     padding: 8rem 0 6rem;
@@ -38,7 +47,6 @@
   }
 }
 
-/* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
 }
 
