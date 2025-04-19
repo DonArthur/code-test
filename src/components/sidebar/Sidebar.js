@@ -2,27 +2,50 @@
 import Link from 'next/link'
 import styles from './Sidebar.module.css'
 import { useEffect, useState } from 'react'
-import { AiFillAppstore } from 'react-icons/ai'
-import { LuPanelLeftOpen, LuPanelLeftClose, LuSearch }  from 'react-icons/lu'
+import { AiFillAppstore, AiFillQuestionCircle } from 'react-icons/ai'
+import { LuPanelLeftOpen, LuPanelLeftClose }  from 'react-icons/lu'
 import useSidebarStore from '@/store/sidebarStore'
 import Modal from '../modal/Modal'
+import LoadingSpinner from '../loading-spinner/LoadingSpinner'
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar, setSidebarOpen } = useSidebarStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (window.innerWidth < 768) setSidebarOpen(false);
   }, []);
 
-  const handleSearch = (e) => {
+  const handleInput = (e) => {
     const value = e.target.value
     setSearchTerm(value)
-    const dummyData = ['Alice', 'Bob', 'Charlie', 'David']
-    const filtered = dummyData.filter(name => name.toLowerCase().includes(value.toLowerCase()))
-    setResults(filtered)
+  }
+
+  const handleSearch = async (e) => {
+    if (e.key === 'Enter') {
+      setLoading(true)
+      try {
+        const response = await fetch('https://localhost:8000/api/ai', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            question: searchTerm
+          }),
+        })
+        const data = await response.json()
+        setResults(data.answer)
+      } catch (error) {
+        console.error(`Error fetching answer: ${error}`)
+        setResults('Something went wrong')
+      } finally {
+        setLoading(false)
+      }
+    }
   }
 
   return (
@@ -34,25 +57,22 @@ const Sidebar = () => {
         {isSidebarOpen && <h2>Sales Dash</h2>}
         <nav>
           <Link href="/">{isSidebarOpen ? <span>Dashboard</span> : <AiFillAppstore /> }</Link>
-          <button onClick={() => setIsModalOpen(true)} className={styles.button}>{isSidebarOpen ? <span>Search</span> : <LuSearch />}</button>
+          <button onClick={() => setIsModalOpen(true)} className={styles.button}>{isSidebarOpen ? <span>FAQ</span> : <AiFillQuestionCircle />}</button>
         </nav>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className={styles.searchContainer}>
-          <h2>Search</h2>
+          <h2>FAQ</h2>
           <input
             type="text"
             value={searchTerm}
-            onChange={handleSearch}
-            placeholder="Type a name..."
+            onChange={(e) => handleInput(e)}
+            onKeyUp={(e) => handleSearch(e)}
+            placeholder="Ask anything and press enter..."
             className={styles.searchInput}
           />
           <div className={styles.resultContainer}>
-            {results.map((item, index) => (
-              <div key={index} className={styles.resultItem}>
-                🔍 {item}
-              </div>
-            ))}
+            {loading ? <LoadingSpinner /> : <span>{results}</span>}
           </div>
         </div>
       </Modal>
