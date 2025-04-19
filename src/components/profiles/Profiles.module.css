@@ -4,6 +4,7 @@
 
 .wrapper {
   padding: 24px;
+  max-width: 50vw;
 }
 
 .title {
@@ -27,4 +28,10 @@
 .grid::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    max-width: 80vw;
+  }
 }
