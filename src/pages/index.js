@@ -6,6 +6,7 @@ import Sales from '@/components/sales/Sales'
 import Leaderboard from '@/components/leaderboard/Leaderboard'
 import useSidebarStore from '@/store/sidebarStore'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
+import axios from 'axios'
 
 export default function Home() {
   const [data, setData] = useState(null)
@@ -13,11 +14,11 @@ export default function Home() {
   const [error, setError] = useState(null)
   const { isSidebarOpen } = useSidebarStore()
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/data")
-    .then((res) => res.json())
-    .then((data) => {
-      setData(data.users || {
+  useEffect(async () => {
+    setLoading(true)
+    try {
+      const response = await axios.get('http://localhost:8000/api/data')
+      setData(response.salesReps || {
         "salesReps": [
           {
             "id": 1,
@@ -105,14 +106,13 @@ export default function Home() {
             ]
           }
         ]
-      });
-      setLoading(false);
-    })
-    .catch((err) => {
+      })
+    } catch (err) {
       console.error("Failed to fetch data:", err);
       setError(`Failed to fetch data: ${err}. Please try again.`)
-      setLoading(false);
-    });
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   if (loading) return <LoadingSpinner />

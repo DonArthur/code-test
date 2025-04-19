@@ -7,6 +7,7 @@ import { LuPanelLeftOpen, LuPanelLeftClose }  from 'react-icons/lu'
 import useSidebarStore from '@/store/sidebarStore'
 import Modal from '../modal/Modal'
 import LoadingSpinner from '../loading-spinner/LoadingSpinner'
+import axios from 'axios'
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar, setSidebarOpen } = useSidebarStore()
@@ -28,14 +29,8 @@ const Sidebar = () => {
     if (e.key === 'Enter') {
       setLoading(true)
       try {
-        const response = await fetch('https://localhost:8000/api/ai', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            question: searchTerm
-          }),
+        const response = await axios.get('https://localhost:8000/api/ai', {
+          question: searchTerm
         })
         const data = await response.json()
         setResults(data.answer)
