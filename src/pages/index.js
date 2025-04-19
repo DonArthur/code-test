@@ -4,7 +4,7 @@ import Sidebar from '@/components/sidebar/Sidebar'
 import Profiles from '@/components/profiles/Profiles'
 import Sales from '@/components/sales/Sales'
 import Leaderboard from '@/components/leaderboard/Leaderboard'
-import useSidebarStore from '@/store/SidebarStore'
+import useSidebarStore from '@/store/sidebarStore'
 
 export default function Home() {
   const [data, setData] = useState({
