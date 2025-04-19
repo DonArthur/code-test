@@ -68,6 +68,45 @@
   transition: margin-left 0.3s ease;
 }
 
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 .5rem;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+.searchContainer {
+  padding: 1rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.resultContainer {
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
+  color: #000;
+}
+
+.resultItem {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  color: #000;
+}
+
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
