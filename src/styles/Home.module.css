@@ -29,6 +29,7 @@
 @media (max-width: 700px) {
   .center {
     padding: 8rem 0 6rem;
+    flex-direction: column;
   }
 
   .center::before {

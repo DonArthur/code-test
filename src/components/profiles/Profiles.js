@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styles from './Profiles.module.css'
+import ProfileCard from '../profile-card/ProfileCard'
 
 const Profiles = ({ data }) => {
   const formatShortNumber = (num) => {
@@ -9,22 +10,13 @@ const Profiles = ({ data }) => {
   }
 
   return (
-    <div>
-        Profiles
-        {data.map((item) => {
-          return (
-            <div key={item.id}>
-              <Image className={styles.roundImg} src={item.imgUrl} width={100} height={100} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>{item.role}</p>
-              <span>{item.region}</span>
-              <h2>${item.deals.reduce((sum, deal) => {
-                const amount = deal.status === 'Closed Won' ? sum + deal.value : sum
-                return formatShortNumber(amount)
-              }, 0)}</h2>
-            </div>
-          )
-        })}
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>Profiles</h2>
+      <div className={styles.grid}>
+        {data.map((item) => (
+          <ProfileCard key={item.id} profile={item} />
+        ))}
+      </div>
     </div>
   )
 }
