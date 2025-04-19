@@ -106,10 +106,10 @@ export default function Home() {
       <div className={`${styles.section} ${isSidebarOpen ? styles.mlOpened : styles.mlClosed }`}>
         <div className={styles.center}>
           <div>
-            <Sales />
             <Leaderboard data={data.salesReps} />
           </div>
           <div>
+            <Sales data={data.salesReps} />
             <Profiles data={data.salesReps} />
           </div>
         </div>
