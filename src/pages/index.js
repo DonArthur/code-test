@@ -14,7 +14,11 @@ export default function Home() {
   const [error, setError] = useState(null)
   const { isSidebarOpen } = useSidebarStore()
 
-  useEffect(async () => {
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
     setLoading(true)
     try {
       const response = await axios.get('http://localhost:8000/api/data')
@@ -113,7 +117,7 @@ export default function Home() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }
 
   if (loading) return <LoadingSpinner />
   if (error) return <p className="text-red-600 text-center">{error}</p>
